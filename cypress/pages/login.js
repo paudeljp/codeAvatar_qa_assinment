@@ -6,23 +6,23 @@ class LoginPage {
   }
 
   visit() {
-    cy.visit('/')
+    cy.visit('/') // Visit the login page
   }
 
   enterUsername(username) {
-    cy.get(this.elements.usernameInput).type(username)
+    cy.get(this.elements.usernameInput).type(username) // Enter username
   }
 
   enterPassword(password) {
-    cy.get(this.elements.passwordInput).type(password)
+    cy.get(this.elements.passwordInput).type(password) // Enter password
   }
 
   submit() {
-    cy.get(this.elements.submitButton).click()
+    cy.get(this.elements.submitButton).click() // Click on submit button
   }
 
   validateLoginSuccess() {
-    cy.url().should('include', '/dashboard/')
+    cy.url().should('include', '/dashboard/') // Ensure URL includes '/dashboard'
   }
 
   login(testUser) {
@@ -30,7 +30,7 @@ class LoginPage {
     this.enterUsername(testUser.username)
     this.enterPassword(testUser.password)
     this.submit()
-    this.validateLoginSuccess()
+    this.validateLoginSuccess() // Validate successful login
   }
 }
 

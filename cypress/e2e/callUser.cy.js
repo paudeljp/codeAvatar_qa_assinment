@@ -1,4 +1,4 @@
-import UserCallPage from '../pages/userCall'
+import CallPage from '../pages/userCall'
 
 describe('User Call Flow', () => {
   let testData
@@ -13,24 +13,25 @@ describe('User Call Flow', () => {
   // Instantiate the page objects
   const callPage = new CallPage()
 
+  // Run login before each test and navigate to call page
   beforeEach(() => {
-    // Use the login command with fixture data
-    cy.login(testData.testUser)
-    // Navigate to the call page
-    callPage.visit()
+    cy.login(testData.testUser) // Custom Cypress command to login
+    callPage.visit() // Navigate to the call page
   })
 
+  // Test case for successful call initiation
   it('should initiate a call to a specific number', () => {
-    // Verify the call page has loaded
-    callPage.verifyPageLoaded()
+    callPage.verifyPageLoaded() // Validate call page is loaded
+    callPage.enterPhoneNumber(testData.phoneNumber) // Enter valid phone number
+    callPage.initiateCall() // Click 'Call' button
+    callPage.verifyCallStatus() // Verify the call initiation is successful
+  })
 
-    // Enter phone number
-    callPage.enterPhoneNumber(testData.phoneNumber)
-
-    // Click the 'Call' button
-    callPage.initiateCall()
-
-    // Validate that the call has started
-    callPage.verifyCallInitiation()
+  // Test case for invalid phone number entry
+  it('should show error for invalid phone number', () => {
+    callPage.verifyPageLoaded() // Validate call page is loaded
+    callPage.enterPhoneNumber('invalidPhone') // Enter invalid phone number
+    callPage.initiateCall() // Attempt to initiate the call
+    callPage.verifyPhoneNumberValidation() // Verify error message
   })
 })

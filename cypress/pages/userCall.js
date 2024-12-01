@@ -23,6 +23,11 @@ class UserCallPage {
   verifyCallInitiation() {
     cy.contains('Calling').should('be.visible')
   }
+
+  verifyPhoneNumberValidation() {
+    cy.contains('Invalid phone number').should('be.visible')
+  }
+
 }
 
 export default UserCallPage
